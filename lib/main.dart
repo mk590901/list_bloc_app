@@ -32,7 +32,6 @@ class ListApp extends StatelessWidget {
 
 class ItemBloc extends Bloc<ItemEvent, List<String>> {
   ItemBloc() : super([]) {
-
     on<ItemEvent>((event, Emitter<List<String>> emit) {
         if (event is AddItemEvent) {
           // Handle AddItem event
