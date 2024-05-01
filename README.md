@@ -1,6 +1,6 @@
-# list_bloc
+# List BLoC App
 
-A new Flutter project.
+App allows to add and remove items to list via BLoC events.
 
 ## Getting Started
 
