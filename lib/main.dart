@@ -23,7 +23,12 @@ class ListApp extends StatelessWidget {
             title: const Text('Flutter List BLoC Demo'),
           ),
           body: const ItemList(),
-          floatingActionButton: const AddItemButton(),
+          //floatingActionButton: const AddItemButton(),
+
+            persistentFooterButtons: const <Widget>[
+              RemoveItemButton(),
+              AddItemButton(),
+            ],
         ),
       ),
     );
@@ -39,6 +44,11 @@ class ItemBloc extends Bloc<ItemEvent, List<String>> {
           currentItems.add(event.item);
           emit(currentItems);
         }
+        else if (event is RemoveItemEvent){
+          List<String> currentItems = List.from(state);
+          currentItems.remove(event.item);
+          emit(currentItems);
+        }
     });
   }
 
@@ -49,6 +59,11 @@ class ItemBloc extends Bloc<ItemEvent, List<String>> {
       currentItems.add(event.item);
       yield currentItems;
     }
+    else if (event is RemoveItemEvent) {
+      List<String> currentItems = List.from(state);
+      currentItems.remove(event.item);
+      yield currentItems;
+    }
   }
 }
 
@@ -57,6 +72,11 @@ abstract class ItemEvent {}
 class AddItemEvent extends ItemEvent {
   final String item;
   AddItemEvent(this.item);
+}
+
+class RemoveItemEvent extends ItemEvent {
+  final String item;
+  RemoveItemEvent(this.item);
 }
 
 class ItemList extends StatelessWidget {
@@ -95,6 +115,32 @@ class AddItemButton extends StatelessWidget {
         bloc.add(AddItemEvent(item)); // Dispatch AddItem event to the bloc
       },
       child: const Icon(Icons.add),
+    );
+  }
+}
+
+class RemoveItemButton extends StatelessWidget {
+  const RemoveItemButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      onPressed: () {
+        final bloc = BlocProvider.of<ItemBloc>(context);
+        if (bloc.state.isNotEmpty) {
+          final item = bloc.state.first;
+          bloc.add(RemoveItemEvent(item));
+        }
+        else {
+          const snackBar = SnackBar(
+            content: Text('No items!'),
+            duration: Duration(seconds: 1),
+            backgroundColor: Colors.deepPurpleAccent,
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }
+      },
+      child: const Icon(Icons.close),
     );
   }
 }
