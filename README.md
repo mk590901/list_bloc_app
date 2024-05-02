@@ -2,15 +2,11 @@
 
 App allows to add and remove items to list via BLoC events.
 
-## Getting Started
+## Introduction
+Some notes about project
+### Basic idea
+Ihe state of ItemBloc is the mutable list itself and there are two events: __AddItemEvent__ for adding a row to the list and RemoveItemEvent for removing the first item in the list.
+### Notes
+This is an interim project that may be further developed.
+## Movie
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
